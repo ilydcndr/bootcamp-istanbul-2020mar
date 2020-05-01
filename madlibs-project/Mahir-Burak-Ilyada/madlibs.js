@@ -56,10 +56,7 @@ function parseStory(rawStory) {
     });
     // Your code here.
     return newArr; // This line is currently wrong :)
-  }
-  
-  let inputsArray = [34,35,37,39,40,43,48,50,51,52,53,57,59,61,62,64,65,66];
-  
+  } 
   /**
    * All your other JavaScript code goes here, inside the function. Don't worry about
    * the `then` and `async` syntax for now.
@@ -67,10 +64,8 @@ function parseStory(rawStory) {
    * You'll want to use the results of parseStory() to display the story on the page.
    */
   getRawStory().then(parseStory).then((processedStory) => {
-    console.log(processedStory);
-  
       const madLibsPreview = document.querySelector('.madLibsPreview');
-  
+      console.log("process",processedStory)
       for (let i = 0 ; i < processedStory.length ; i++) {
       if (!("pos" in processedStory[i])) {
         let newSpan = document.createElement("span");
@@ -79,32 +74,37 @@ function parseStory(rawStory) {
         madLibsPreview.appendChild(newSpan);
       } else {
         let newSpan1 = document.createElement("span");
-        if ((processedStory[i+1].word == ",") || (processedStory[i+1].word == ".")) {
-          newSpan1.setAttribute("id", `${i}`);
-          newSpan1.innerHTML = "(" + processedStory[i].pos + ")";
-          newSpan1.style.opacity = 0.4;
-          madLibsPreview.appendChild(newSpan1);
-        } else {
+        // if ((processedStory[i+1].word == ",") || (processedStory[i+1].word == ".")) {
+        //   console.log(i)
+        //   newSpan1.setAttribute("id", `${i}`);
+        //   newSpan1.innerHTML = "(" + processedStory[i].pos + ")";
+        //   newSpan1.style.opacity = 0.4;
+        //   madLibsPreview.appendChild(newSpan1);
+        // } else {
+          console.log("i",i)
           let newSpan2 = document.createElement("span");
           newSpan2.innerHTML = " ";
           newSpan1.setAttribute("id", `${i}`);
           newSpan1.innerHTML = "(" + processedStory[i].pos + ")";
+          newSpan1.innerHTML +=" "
           newSpan1.style.opacity = 0.4;
           madLibsPreview.appendChild(newSpan1);
           madLibsPreview.appendChild(newSpan2);
-        }
+        // }
       }
     }
   
   
-  
+    let inputsArray = [34,35,37,39,40,43,48,50,51,52,53,57,59,61,62,64,65,66];
   
     for (let i = 0 ; i < processedStory.length ; i++) {
+      console.log("length",processedStory.length)
       if (!("pos" in processedStory[i])) {
         let span = document.getElementById(`${i+processedStory.length}`);
         span.innerHTML = processedStory[i].word;
       } else {
         let input = document.getElementById(`${i+processedStory.length}`);
+        console.log("input",input)
         input.setAttribute("placeholder", `${processedStory[i].pos}`);
         input.setAttribute("maxlength", "20");
         input.classList.add("inputs");
